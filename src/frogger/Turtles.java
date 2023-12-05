@@ -25,6 +25,8 @@
 
 package frogger;
 import jig.engine.util.Vector2D;
+
+
   
 /**
  * Besides being a simple MovingEntity
@@ -38,6 +40,8 @@ import jig.engine.util.Vector2D;
  */
 public class Turtles extends MovingEntity{
 	
+	public static final String colSmall = "colSmall";
+	
 	private long underwaterTime   = 0;
 	private long underwaterPeriod = 1200;
 	
@@ -50,7 +54,7 @@ public class Turtles extends MovingEntity{
 	private long timerMs;
 	private long animatingPeriod = 150; 
 	private int aFrame = 0;
-	private int max_aFrame = 2; // Animate only 2 frames
+	private int maxAFrame = 2; // Animate only 2 frames
 	
 	/**
 	 * Build a Turtle object that is floating by default
@@ -101,9 +105,9 @@ public class Turtles extends MovingEntity{
 		Vector2D posSphere1 = position;
 		Vector2D posSphere2 = new Vector2D(position.getX()+32, position.getY());
 		Vector2D posSphere3 = new Vector2D(position.getX()+64, position.getY());
-		collisionObjects.add(new CollisionObject("colSmall", posSphere1));
-		collisionObjects.add(new CollisionObject("colSmall", posSphere2));
-		collisionObjects.add(new CollisionObject("colSmall", posSphere3));
+		collisionObjects.add(new CollisionObject(colSmall, posSphere1));
+		collisionObjects.add(new CollisionObject(colSmall, posSphere2));
+		collisionObjects.add(new CollisionObject(colSmall, posSphere3));
 		velocity = v;
 		
 		// Turtles floating direction, left/right		
@@ -145,7 +149,7 @@ public class Turtles extends MovingEntity{
 			aFrame++;
 		}
 		
-		if (aFrame >= max_aFrame) {
+		if (aFrame >= maxAFrame) {
 			isAnimating = false;
 			isUnderwater = !isUnderwater;
 		}
@@ -163,6 +167,7 @@ public class Turtles extends MovingEntity{
 		aFrame = 0;
 	}
 	
+	@Override
 	public void update(final long deltaMs) {
 		super.update(deltaMs);
 		localDeltaMs = deltaMs;

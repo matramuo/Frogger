@@ -79,13 +79,13 @@ public class Main extends StaticScreenGame {
     static final int GAME_INSTRUCTIONS = 3;
     static final int GAME_OVER         = 4;
     
-	protected int GameState = GAME_INTRO;
-	protected int GameLevel = STARTING_LEVEL;
+	protected int gameState = GAME_INTRO;
+	protected int gameLevel = STARTING_LEVEL;
 	
-    public int GameLives    = FROGGER_LIVES;
-    public int GameScore    = 0;
+    public static int gameLives    = FROGGER_LIVES;
+    public static int gameScore    = 0;
     
-    public int levelTimer = DEFAULT_LEVEL_TIME;
+    public static int levelTimer = DEFAULT_LEVEL_TIME;
     
     private boolean space_has_been_released = false;
 	private boolean keyPressed = false;
@@ -121,8 +121,8 @@ public class Main extends StaticScreenGame {
 		hwave = new HeatWave();
 		goalmanager = new GoalManager();
 		
-		movingObjectsLayer = new AbstractBodyLayer.IterativeUpdate<MovingEntity>();
-		particleLayer = new AbstractBodyLayer.IterativeUpdate<MovingEntity>();
+		movingObjectsLayer = new AbstractBodyLayer.IterativeUpdate<>();
+		particleLayer = new AbstractBodyLayer.IterativeUpdate<>();
 		
 		initializeLevel(1);
 	}
@@ -219,7 +219,7 @@ public class Main extends StaticScreenGame {
 	    if ((m = riverLine5.buildShortLogWithTurtles(10)) != null) movingObjectsLayer.add(m);
 	    
 	    // Do Wind
-	    if ((m = wind.genParticles(GameLevel)) != null) particleLayer.add(m);
+	    if ((m = wind.genParticles(gameLevel)) != null) particleLayer.add(m);
 	    
 	    // HeatWave
 	    if ((m = hwave.genParticles(frog.getCenterPosition())) != null) particleLayer.add(m);
@@ -246,8 +246,8 @@ public class Main extends StaticScreenGame {
 		if (keyboard.isPressed(KeyEvent.VK_V))
 			frog.cheating = false;
 		if (keyboard.isPressed(KeyEvent.VK_0)) {
-			GameLevel = 10;
-			initializeLevel(GameLevel);
+			gameLevel = 10;
+			initializeLevel(gameLevel);
 		}
 		
 		
@@ -277,7 +277,7 @@ public class Main extends StaticScreenGame {
 		}
 		
 		if (keyboard.isPressed(KeyEvent.VK_ESCAPE))
-			GameState = GAME_INTRO;
+			gameState = GAME_INTRO;
 	}
 	
 	/**
@@ -295,25 +295,25 @@ public class Main extends StaticScreenGame {
 			return;
 		
 		if (keyboard.isPressed(KeyEvent.VK_SPACE)) {
-			switch (GameState) {
+			switch (gameState) {
 			case GAME_INSTRUCTIONS:
 			case GAME_OVER:
-				GameState = GAME_INTRO;
+				gameState = GAME_INTRO;
 				space_has_been_released = false;
 				break;
 			default:
-				GameLives = FROGGER_LIVES;
-				GameScore = 0;
-				GameLevel = STARTING_LEVEL;
+				gameLives = FROGGER_LIVES;
+				gameScore = 0;
+				gameLevel = STARTING_LEVEL;
 				levelTimer = DEFAULT_LEVEL_TIME;
 				frog.setPosition(FROGGER_START);
-				GameState = GAME_PLAY;
+				gameState = GAME_PLAY;
 				audiofx.playGameMusic();
-				initializeLevel(GameLevel);			
+				initializeLevel(gameLevel);			
 			}
 		}
 		if (keyboard.isPressed(KeyEvent.VK_H))
-			GameState = GAME_INSTRUCTIONS;
+			gameState = GAME_INSTRUCTIONS;
 	}
 	
 	/**
@@ -322,9 +322,9 @@ public class Main extends StaticScreenGame {
 	public void finishLevelKeyboardHandler() {
 		keyboard.poll();
 		if (keyboard.isPressed(KeyEvent.VK_SPACE)) {
-			GameState = GAME_PLAY;
+			gameState = GAME_PLAY;
 			audiofx.playGameMusic();
-			initializeLevel(++GameLevel);
+			initializeLevel(++gameLevel);
 		}
 	}
 	
@@ -333,7 +333,7 @@ public class Main extends StaticScreenGame {
 	 * w00t
 	 */
 	public void update(long deltaMs) {
-		switch(GameState) {
+		switch(gameState) {
 		case GAME_PLAY:
 			froggerKeyboardHandler();
 			wind.update(deltaMs);
@@ -347,13 +347,13 @@ public class Main extends StaticScreenGame {
 			
 			// Wind gusts work only when Frogger is on the river
 			if (frogCol.isInRiver())
-				wind.start(GameLevel);		
-			wind.perform(frog, GameLevel, deltaMs);
+				wind.start(gameLevel);		
+			wind.perform(frog, gameLevel, deltaMs);
 			
 			// Do the heat wave only when Frogger is on hot pavement
 			if (frogCol.isOnRoad())
-				hwave.start(frog, GameLevel);
-			hwave.perform(frog, deltaMs, GameLevel);
+				hwave.start(frog, gameLevel);
+			hwave.perform(frog, gameLevel);
 			
 	
 			if (!frog.isAlive)
@@ -362,13 +362,13 @@ public class Main extends StaticScreenGame {
 			goalmanager.update(deltaMs);
 			
 			if (goalmanager.getUnreached().size() == 0) {
-				GameState = GAME_FINISH_LEVEL;
+				gameState = GAME_FINISH_LEVEL;
 				audiofx.playCompleteLevel();
 				particleLayer.clear();
 			}
 			
-			if (GameLives < 1) {
-				GameState = GAME_OVER;
+			if (gameLives < 1) {
+				gameState = GAME_OVER;
 			}
 			
 			break;
@@ -392,7 +392,7 @@ public class Main extends StaticScreenGame {
 	 * Rendering game objects
 	 */
 	public void render(RenderingContext rc) {
-		switch(GameState) {
+		switch(gameState) {
 		case GAME_FINISH_LEVEL:
 		case GAME_PLAY:
 			backgroundLayer.render(rc);

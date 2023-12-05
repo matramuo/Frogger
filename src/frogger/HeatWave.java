@@ -30,8 +30,8 @@ import java.util.Random;
 import jig.engine.util.Vector2D;
 
 public class HeatWave {
-	final static int PERIOD    = 2000;  //milliseconds
-	final static int DURATION  = 1000;  //milliseconds
+	static final int PERIOD    = 2000;  //milliseconds
+	static final int DURATION  = 1000;  //milliseconds
 	
 	Random r;
 	
@@ -39,7 +39,7 @@ public class HeatWave {
 	private long durationMs;
 	private long heatWaveMs;
 	
-	public boolean isHot;
+	private boolean isHot;
 	
 	public HeatWave() {
 		isHot = false;
@@ -51,9 +51,8 @@ public class HeatWave {
 	/**
 	 * This is checked with every game update
 	 * @param f - reference Frogger's hw_hasMoved
-	 * @param deltaMs
 	 */
-	public void perform (Frogger f, final long deltaMs, final int level) {	
+	public void perform (Frogger f, final int level) {	
 		if (!f.isAlive) {
 			isHot = false;
 			return;

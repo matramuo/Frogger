@@ -1,0 +1,6 @@
+projectKey=matramuo_Frogger_AYwxBlKeCgykf8harVRs
+serverUrl=http://localhost:9000/sonar
+serverVersion=10.3.0.82913
+dashboardUrl=http://localhost:9000/sonar/dashboard?id=matramuo_Frogger_AYwxBlKeCgykf8harVRs
+ceTaskId=AYw1Jrz6Caws5N-vWQlj
+ceTaskUrl=http://localhost:9000/sonar/api/ce/task?id=AYw1Jrz6Caws5N-vWQlj

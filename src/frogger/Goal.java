@@ -28,8 +28,8 @@ import jig.engine.util.Vector2D;
 
 public class Goal extends MovingEntity {
 	
-	public boolean isReached = false;
-	public boolean isBonus = false;
+	protected boolean isReached = false;
+	protected boolean isBonus = false;
 	
 	public Goal(int loc) {
 		super(Main.SPRITE_SHEET + "#goal");
@@ -62,7 +62,8 @@ public class Goal extends MovingEntity {
 		}
 	}
 	
+	@Override
 	public void update(long deltaMs) {
-		;
+		return;
 	}
 }

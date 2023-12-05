@@ -66,18 +66,18 @@ public class FroggerUI implements ViewableLayer {
 		font.render("Time: " + game.levelTimer, rc, 
 				AffineTransform.getTranslateInstance(180, 7));
 		
-		font.render("Score: " + game.GameScore, rc, 
+		font.render("Score: " + game.gameScore, rc, 
 				AffineTransform.getTranslateInstance(310, 7));
 		
-		if (game.GameLives > 0) {
+		if (game.gameLives > 0) {
 			int dx = 0;
 			
 			// if player has more than 10 lives, draw only 10 hearts
-			int maxHearts = game.GameLives;
+			int maxHearts = game.gameLives;
 			if (maxHearts > 10)
 				maxHearts = 10;
 			else 
-				maxHearts = game.GameLives;
+				maxHearts = game.gameLives;
 			
 			for (int i = 0; i < maxHearts; i++ ) {
 				heart.get(0).render(rc, 
@@ -86,31 +86,31 @@ public class FroggerUI implements ViewableLayer {
 			}
 		}
 
-		font.render("L" + game.GameLevel, rc, 
+		font.render("L" + game.gameLevel, rc, 
 				AffineTransform.getTranslateInstance(270, 7));
 		
-		if (game.GameState == Main.GAME_INTRO) {
+		if (game.gameState == Main.GAME_INTRO) {
 			   introTitle.get(0).render(rc, 
 						AffineTransform.getTranslateInstance(
 								(Main.WORLD_WIDTH - introTitle.get(0).getWidth())/2, 150));
 			   return;
 		}
 		
-		if (game.GameState == Main.GAME_INSTRUCTIONS) {
+		if (game.gameState == Main.GAME_INSTRUCTIONS) {
 			   instructions.get(0).render(rc, 
 						AffineTransform.getTranslateInstance(
 								(Main.WORLD_WIDTH - instructions.get(0).getWidth())/2, 100));
 			   return;			
 		}
 		
-		if (game.GameState == Main.GAME_OVER) {
+		if (game.gameState == Main.GAME_OVER) {
 		   gameOver.get(0).render(rc, 
 					AffineTransform.getTranslateInstance(
 							(Main.WORLD_WIDTH - gameOver.get(0).getWidth())/2, 150));
 		   return;
 		}
 		
-		if (game.GameState == Main.GAME_FINISH_LEVEL) {
+		if (game.gameState == Main.GAME_FINISH_LEVEL) {
 			 levelFinish.get(0).render(rc, 
 						AffineTransform.getTranslateInstance(
 								(Main.WORLD_WIDTH - levelFinish.get(0).getWidth())/2, 150));		 

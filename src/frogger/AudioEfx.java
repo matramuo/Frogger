@@ -46,40 +46,40 @@ public class AudioEfx {
 	FroggerCollisionDetection fc;
 	Frogger frog;
 	
-	public Random rand = new Random(System.currentTimeMillis());
+	public static final Random rand = new Random(System.currentTimeMillis());
 	
 	// Background music
 	private AudioStream gameMusic;
 	
 	public static final String A_FX_PATH = Main.RSC_PATH + "ambient_fx/";
 	
-	public static AudioClip frogJump = ResourceFactory.getFactory().getAudioClip(
+	public static final AudioClip frogJump = ResourceFactory.getFactory().getAudioClip(
 			Main.RSC_PATH + "jump.wav");
 	
-	public static AudioClip frogDie = ResourceFactory.getFactory().getAudioClip(
+	public static final AudioClip frogDie = ResourceFactory.getFactory().getAudioClip(
 			Main.RSC_PATH + "frog_die.ogg");	
 
-	public static AudioClip frogGoal = ResourceFactory.getFactory().getAudioClip(
+	public static final AudioClip frogGoal = ResourceFactory.getFactory().getAudioClip(
 			Main.RSC_PATH + "goal.ogg");
 	
-	public static AudioClip levelGoal = ResourceFactory.getFactory().getAudioClip(
+	public static final AudioClip levelGoal = ResourceFactory.getFactory().getAudioClip(
 			Main.RSC_PATH + "level_goal.ogg");
 
-	public static AudioClip wind = ResourceFactory.getFactory().getAudioClip(
+	public static final AudioClip wind = ResourceFactory.getFactory().getAudioClip(
 			Main.RSC_PATH + "wind.ogg");
 	
-	public static AudioClip heat = ResourceFactory.getFactory().getAudioClip(
+	public static final AudioClip heat = ResourceFactory.getFactory().getAudioClip(
 			Main.RSC_PATH + "match.ogg");
 	
-	public static AudioClip bonus = ResourceFactory.getFactory().getAudioClip(
+	public static final AudioClip bonus = ResourceFactory.getFactory().getAudioClip(
 			Main.RSC_PATH + "bonus.ogg");	
 	
-	public static AudioClip siren = ResourceFactory.getFactory().getAudioClip(
+	public static final AudioClip siren = ResourceFactory.getFactory().getAudioClip(
 			A_FX_PATH + "siren.ogg");
 	
 	// one effect is randomly picked from road_effects or water_effects every couple of seconds
-	private List<AudioClip> road_effects = new LinkedList<AudioClip>();
-	private List<AudioClip> water_effects = new LinkedList<AudioClip>();
+	private List<AudioClip> roadEffects = new LinkedList<AudioClip>();
+	private List<AudioClip> waterEffects = new LinkedList<AudioClip>();
 	
 	private int effectsDelay = 3000;
 	private int deltaT = 0;
@@ -94,13 +94,13 @@ public class AudioEfx {
 		fc = f;
 		frog = frg;
 		
-		road_effects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "long-horn.ogg"));
-	    road_effects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "car-pass.ogg"));
-		road_effects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "siren.ogg"));
+		roadEffects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "long-horn.ogg"));
+	    roadEffects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "car-pass.ogg"));
+		roadEffects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "siren.ogg"));
 
-		water_effects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "water-splash.ogg"));
-	    water_effects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "splash.ogg"));
-		water_effects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "frog.ogg"));
+		waterEffects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "water-splash.ogg"));
+	    waterEffects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "splash.ogg"));
+		waterEffects.add(ResourceFactory.getFactory().getAudioClip(A_FX_PATH + "frog.ogg"));
 
 		gameMusic = new AudioStream(Main.RSC_PATH + "bg_music.ogg");
 	}
@@ -119,12 +119,12 @@ public class AudioEfx {
 		
 		if (deltaT > effectsDelay && fc.isOnRoad()) {
 			deltaT = 0;
-			road_effects.get(rand.nextInt(road_effects.size())).play(0.2);
+			roadEffects.get(rand.nextInt(roadEffects.size())).play(0.2);
 		}
 		
 		if (deltaT > effectsDelay && fc.isInRiver()) {
 			deltaT = 0;
-			water_effects.get(rand.nextInt(road_effects.size())).play(0.2);
+			waterEffects.get(rand.nextInt(roadEffects.size())).play(0.2);
 		}
 	}
 	

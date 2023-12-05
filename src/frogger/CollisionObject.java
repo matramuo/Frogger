@@ -51,6 +51,11 @@ public class CollisionObject extends VanillaSphere {
 	}
 	
 	public void update(long deltaMs) {
-		;
+		try {
+	        throw new UnsupportedOperationException("Invalid operation for sorted list.");
+	    } catch (java.lang.UnsupportedOperationException e) {
+	        System.out.println("–");
+	    }
+		return;
 	}
 }
