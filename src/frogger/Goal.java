@@ -64,6 +64,6 @@ public class Goal extends MovingEntity {
 	
 	@Override
 	public void update(long deltaMs) {
-		return;
+		
 	}
 }

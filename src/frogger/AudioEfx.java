@@ -78,8 +78,8 @@ public class AudioEfx {
 			A_FX_PATH + "siren.ogg");
 	
 	// one effect is randomly picked from road_effects or water_effects every couple of seconds
-	private List<AudioClip> roadEffects = new LinkedList<AudioClip>();
-	private List<AudioClip> waterEffects = new LinkedList<AudioClip>();
+	private List<AudioClip> roadEffects = new LinkedList<>();
+	private List<AudioClip> waterEffects = new LinkedList<>();
 	
 	private int effectsDelay = 3000;
 	private int deltaT = 0;
